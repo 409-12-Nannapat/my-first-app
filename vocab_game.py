@@ -8,7 +8,7 @@ if "ans1_val" not in st.session_state:
     st.session_state.ans1_val = ""
 if "ans2_val" not in st.session_state:
     st.session_state.ans2_val = ""
-    if "ans3_val" not in st.session_state:
+if "ans3_val" not in st.session_state:
     st.session_state.ans3_val = ""
 if "ans4_val" not in st.session_state:
     st.session_state.ans4_val = ""
@@ -18,7 +18,7 @@ if "ans4_val" not in st.session_state:
 def reset_game():
     st.session_state.ans1_val = ""  # เคลียร์ค่าช่องข้อ 1
     st.session_state.ans2_val = ""  # เคลียร์ค่าช่องข้อ 2
-      st.session_state.ans3_val = ""  # เคลียร์ค่าช่องข้อ 3
+    st.session_state.ans3_val = ""  # เคลียร์ค่าช่องข้อ 3
     st.session_state.ans4_val = ""  # เคลียร์ค่าช่องข้อ 4
     st.session_state.start = time.time()  # เริ่มเวลาใหม่
     st.session_state.is_ended = False  # ปิด Dialog
@@ -28,14 +28,14 @@ def reset_game():
 # 📌 ฟังก์ชัน MessageBox (Dialog)
 # ----------------------------------------------------
 @st.dialog("📊 สรุปผลการเล่นเกม")
-def show_result_dialog(ans1, ans2):
+def show_result_dialog(ans1, ans2, ans3, ans4):
     st.balloons()
     score = 0
 
     u_ans1 = ans1.strip().lower()
     u_ans2 = ans2.strip().lower()
-    u_ans1 = ans3.strip().lower()
-    u_ans2 = ans4.strip().lower()
+    u_ans3 = ans3.strip().lower()
+    u_ans4 = ans4.strip().lower()
 
     # ตรวจข้อ 1
     if u_ans1 == "apple":
@@ -50,7 +50,8 @@ def show_result_dialog(ans1, ans2):
         score += 1
     else:
         st.error(f"❌ ข้อ 2: ยังไม่ถูกต้อง (คุณตอบ '{u_ans2}')")
-        # ตรวจข้อ 3
+
+    # ตรวจข้อ 3
     if u_ans3 == "cherry":
         st.success("✅ ข้อ 3: ถูกต้อง")
         score += 1
@@ -58,7 +59,7 @@ def show_result_dialog(ans1, ans2):
         st.error(f"❌ ข้อ 3: ยังไม่ถูกต้อง (คุณตอบ '{u_ans3}')")
 
     # ตรวจข้อ 4
-    if u_ans2 == "glasses":
+    if u_ans4 == "glasses":
         st.success("✅ ข้อ 4: ถูกต้อง")
         score += 1
     else:
@@ -89,7 +90,7 @@ if "start" in st.session_state and not st.session_state.get("is_ended", False):
 
 st.divider()
 
-# 3. ช่องรับคำตอบ (ใช้ value ผูกกับตัวแปรตรงๆ เพื่อสั่งเคลียร์ได้)
+# 3. ช่องรับคำตอบ
 ans1 = st.text_input(
     "ข้อ 1: An `a _ _ l e` a day keeps the doctor away. 🍎",
     value=st.session_state.ans1_val,
@@ -99,11 +100,11 @@ ans2 = st.text_input(
     value=st.session_state.ans2_val,
 )
 ans3 = st.text_input(
-    "ข้อ 3: There is a `ch _ _ _ y` on top of the ice cream. 🍎",
+    "ข้อ 3: There is a `ch _ _ _ y` on top of the ice cream. 🍒",
     value=st.session_state.ans3_val,
 )
 ans4 = st.text_input(
-    "ข้อ 4: I'm wearing a `gl _ _ _ es`. 🐟",
+    "ข้อ 4: I'm wearing a `gl _ _ _ es`. 👓",
     value=st.session_state.ans4_val,
 )
 
